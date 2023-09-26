@@ -25,9 +25,8 @@ import java.util.Set;
         @Index(columnList = "createdBy")
 } ) // 빠르게 검색 가능함
 
-@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class Article {
+public class Article extends AuditingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,10 +42,6 @@ public class Article {
     @ToString.Exclude //article 테이블로부터 온 것임을 명시
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
-    @CreatedDate @Column(nullable = false) private LocalDateTime createdAt;//최초 insert시 들어감
-    @CreatedBy @Column(nullable = false, length = 100) private String createdBy; //누가 작성했는지 자동으로 생성해줌
-    @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt;
-    @LastModifiedBy @Column(nullable = false, length = 100)  private String modifiedBy;
 
     protected  Article() {
 
